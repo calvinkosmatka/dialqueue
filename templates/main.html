@@ -1,0 +1,94 @@
+<head>
+<script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<style>
+.drag_handle{
+	cursor:	move;
+	cursor:	-webkit-grabbing;
+	background:	#bbbbbb;
+	border-radius:	5px;
+	float:	left;
+	width:	40px;
+	text-align:	center;
+}
+#button{
+	background:	#00dd00;
+	display:	block;
+	position:	relative;
+	border-radius: 10px;
+	margin:	0 auto;
+	text-align:	center;
+}
+#phones li{
+	width:	100%;
+}
+#phones li a{
+	margin: 0 auto;
+	display:	inline-block;
+}
+a:link{
+	color:	black;
+	text-decoration:	none;
+}
+.delete{
+	float:	right;
+	color:	#dd0000;
+	background:	#bbbbbb;
+	border-radius:	5px;
+	width:	40px;
+	text-align:	center;
+}
+.sms{
+	float:	right;
+	color:	#00dd00;
+	background:	#bbbbbb;
+	border-radius:	5px;
+	width:	40px;
+	text-align:	center;
+}
+ul {
+	list-style-type: none;
+	padding:	0px;
+	margin:	0px;
+	width:	100%;
+	text-align:	center;
+}
+body{
+	font-size:	30px;
+	font-family:	"Arial", Sans-serif;
+}
+#new_phone{
+	font-size:	40px;
+	width:	100%;
+}
+</style>
+</head>
+<body>
+<ul id="phones">
+
+</ul>
+</br>
+<input type="tel" id="new_phone" placeholder="phone number"></input>
+</br>
+<div id="button" type="button">Add</div>
+</body>
+<script> 
+function add_phone(number){
+	var ul = $("#phones");
+	ul.append('<li><span class="drag_handle">=</span><span class="delete">x</span><span class="sms"><a href="sms://' + number + ';?&body=">M</a></span><a class="phone" href="tel://' + number + '">' + number + '</a></li>');
+}
+
+$(document).ready(function(){
+	Sortable.create(document.getElementById("phones"), {handle: ".drag_handle"});
+	$("#phones").on('click', '.delete', function(e){
+		$(this).parent().remove();
+	});
+	$("#button").click(function() {
+		var num = $("#new_phone").val();
+		$("#new_phone").val("");
+		add_phone(num);
+	});
+});
+
+</script>
